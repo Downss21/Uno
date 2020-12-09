@@ -12,5 +12,10 @@ public class Helper {
 	public static final Set<String> NUMBER_CARDS =  new HashSet<String>(Arrays.asList(
 			"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"
 			));
-	public static final String[] UNIQUE_CARDS = {"Zero","Wild","+4"};
+	public static final String[] UNIQUE_CARDS = {
+			"Zero","Wild","+4"
+	};
+	public static final String[] COMMON_CARDS = {
+			"One","Two","Three","Four","Five","Six","Seven","Eight","Nine", "Skip","Reverse","+2"
+		};
 }

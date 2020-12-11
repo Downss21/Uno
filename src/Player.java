@@ -10,7 +10,9 @@ public class Player {
 		this.points = 0;
 		this.hand = new Hand(deck);
 	}
-
+	public void receiveCard(Card c) {
+		hand.addCard(c);
+	}
 	/**
 	 * @return the name
 	 */

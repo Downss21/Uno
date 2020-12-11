@@ -8,6 +8,15 @@ public class Card {
 		this.color = color;
 		this.ACTION = Helper.ACTION_CARDS.contains(number);
 	}
+	public boolean canPlay(Deck deck) {
+		Card played = deck.peek();
+		String playedColor = played.getColor();
+		String playedNumber = played.getNumber();
+		return (playedColor.equals(color) || playedNumber.equals(number) || Helper.WILD_CARDS.contains(number));
+	}
+		public String getColor() {
+		return color;
+	}
 	public String getNumber() {
 		return number;
 	}

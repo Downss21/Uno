@@ -10,6 +10,13 @@ public class Hand {
 			addCard(c);
 		}
 	}
+	public boolean canPlay(Deck deck) {
+		int length = hand.size();
+		for (int i = 0; i < length; i++) {
+			if (hand.get(i).canPlay(deck)) return true;
+		}
+		return true;
+	}
 	public void addCard(Card c) {
 		hand.add(c);
 	}

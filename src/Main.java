@@ -2,7 +2,8 @@
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.print(Helper.CARDS.contains("On"));
+		Deck deck = new Deck();
+		System.out.print(deck.toString());
 	}
 
 }

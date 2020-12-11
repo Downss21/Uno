@@ -18,4 +18,7 @@ public class Helper {
 	public static final String[] COMMON_CARDS = {
 			"One","Two","Three","Four","Five","Six","Seven","Eight","Nine", "Skip","Reverse","+2"
 		};
+	public static final String[] COLORS = {
+			"Red","Yellow","Green","Blue"
+	};
 }

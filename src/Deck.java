@@ -33,6 +33,7 @@ public class Deck {
 		}
 		//I'd never need an unshuffled deck so just auto shuffle at the end
 		this.drawPile = shuffle(deck);
+		this.discard(draw());
 	}
 	public Card draw() {
 		Card c = drawPile.pop();

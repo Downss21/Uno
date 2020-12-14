@@ -1,8 +1,8 @@
 
 public class Player {
-	String name;
-	int points;
-	Hand hand;
+	private String name;
+	private int points;
+	private Hand hand;
 	
 	public Player(String name, Deck deck)
 	{
@@ -12,6 +12,7 @@ public class Player {
 	}
 	public void receiveCard(Card c) {
 		hand.addCard(c);
+		System.out.println(name+" received a "+c.toString());
 	}
 	/**
 	 * @return the name
@@ -38,5 +39,15 @@ public class Player {
 	}
 	public void resetHand(Deck deck) {
 		this.hand = new Hand(deck);
+	}
+	public void removeCard(int c) {
+		hand.removeCard(c);
+	}
+	public Card getCard(int c) {
+		return hand.getCard(c);
+	}
+	
+	public String toString() {
+		return hand.toString();
 	}
 }

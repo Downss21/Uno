@@ -22,6 +22,6 @@ public class Helper {
 			"One","Two","Three","Four","Five","Six","Seven","Eight","Nine", "Skip","Reverse","+2"
 		};
 	public static final String[] COLORS = {
-			"Red","Yellow","Green","Blue"
+			"\u001b[38;2;255;0;0mRed","\u001b[38;2;255;255;0mYellow","\u001b[38;2;0;255;0mGreen","\u001b[38;2;0;0;255mBlue"
 	};
 }

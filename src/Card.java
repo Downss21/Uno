@@ -5,7 +5,8 @@ public class Card {
 	
 	public Card(String number, String color) {
 		this.number = number;
-		this.color = color;
+		if (number == "Wild" || number == "+4") this.color = "a";
+		else this.color = color;
 		this.ACTION = Helper.ACTION_CARDS.contains(number);
 	}
 	public boolean canPlay(Deck deck) {
@@ -23,9 +24,12 @@ public class Card {
 	public boolean isAction() {
 		return ACTION;
 	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	@Override
 	public String toString() {
-		return "Card [number=" + number + ", color=" + color + "]";
+		return color+" "+number+"\u001b[0m";
 	}
 	
 }

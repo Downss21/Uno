@@ -1,80 +1,90 @@
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Stack;
 
 public class Deck {
+	private final Card[] deck = new Card[this.DECK_SIZE];
 	private final int DECK_SIZE = 108;
-	private Card[] deck = new Card[DECK_SIZE];
-	private Random generator = new Random();
+	private final Stack<Card> discardPile = new Stack<Card>();
 	private Stack<Card> drawPile = new Stack<Card>();
-	private Stack<Card> discardPile = new Stack<Card>();
-	
+	private final Random generator = new Random(6);
+
 	public Deck() {
 		int cardNumber = 0;
-		//colors first
+		// colors first
 		for (int color = 0; color < 4; color++)
 		{
-			//then common cards
+			// then common cards
 			for (int common = 0; common < 12; common++)
 			{
-				Card c = new Card(Helper.COMMON_CARDS[common], Helper.COLORS[color]);
-				deck[cardNumber] = c;
+				final Card c = new Card(Helper.COMMON_CARDS[common], Helper.COLORS[color]);
+				this.deck[cardNumber] = c;
 				cardNumber++;
-				deck[cardNumber] = c;
+				this.deck[cardNumber] = c;
 				cardNumber++;
 			}
-			//then add unique cards once
+			// then add unique cards once
 			for (int unique = 0; unique < 3; unique++)
 			{
-				Card c = new Card(Helper.UNIQUE_CARDS[unique], Helper.COLORS[color]);
-				deck[cardNumber] = c;
+				final Card c = new Card(Helper.UNIQUE_CARDS[unique], Helper.COLORS[color]);
+				this.deck[cardNumber] = c;
 				cardNumber++;
 			}
 		}
-		//I'd never need an unshuffled deck so just auto shuffle at the end
-		this.drawPile = shuffle(deck);
-		this.discard(draw());
+		// I'd never need an unshuffled deck so just auto shuffle at the end
+		this.drawPile = this.shuffle(this.deck);
+		this.discard(this.draw());
 	}
+
+	public void discard(Card c) {
+		this.discardPile.push(c);
+	}
+
 	public Card draw() {
-		Card c = drawPile.pop();
-		if (drawPile.isEmpty()) refresh();
+		final Card c = this.drawPile.pop();
+		if (this.drawPile.isEmpty())
+		{
+			this.refresh();
+		}
 		return c;
 	}
-	public void discard(Card c) {
-		discardPile.push(c);
-	}
+
 	public Card peek() {
-		return discardPile.peek();
+		return this.discardPile.peek();
 	}
-	private Stack<Card> shuffle(Card[] deck) {
-		int length = deck.length;
-		for (int i = 0; i < length; i++) {
-		int randomNumber = generator.nextInt(length);
-		Card c = deck[i];
-		deck[i] = deck[randomNumber];
-		deck[randomNumber] = c;
-		}
-		Stack<Card> stack = new Stack<Card>();
-		for (int i = 0; i < length; i++) {
-			stack.add(deck[i]);
-		}
-		return stack;
-	}
+
 	private void refresh() {
-		Card c = discardPile.pop();
-		if (drawPile.isEmpty() && discardPile.isEmpty())
+		final Card c = this.discardPile.pop();
+		if (this.drawPile.isEmpty() && this.discardPile.isEmpty())
 		{
 			System.out.print("How did you manage to run out of cards. Do better next time");
 			System.exit(0);
 		}
-		Card[] array = new Card[discardPile.size()];
-		discardPile.copyInto(array);
-		this.drawPile = shuffle(array);
+		final Card[] array = new Card[this.discardPile.size()];
+		this.discardPile.copyInto(array);
+		this.drawPile = this.shuffle(array);
 		this.discardPile.clear();
 		this.discardPile.push(c);
 	}
+
+	private Stack<Card> shuffle(Card[] deck) {
+		final int length = deck.length;
+		for (int i = 0; i < length; i++)
+		{
+			final int randomNumber = this.generator.nextInt(length);
+			final Card c = deck[i];
+			deck[i] = deck[randomNumber];
+			deck[randomNumber] = c;
+		}
+		final Stack<Card> stack = new Stack<Card>();
+		for (int i = 0; i < length; i++)
+		{
+			stack.add(deck[i]);
+		}
+		return stack;
+	}
+
 	@Override
 	public String toString() {
-		return "Deck [drawPile=" + drawPile + "]";
+		return "Deck [drawPile=" + this.drawPile + "]";
 	}
 }

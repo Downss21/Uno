@@ -1,66 +1,74 @@
 
 public class Player {
-	private String name;
-	private int points;
 	private Hand hand;
-	
-	public Player(String name, Deck deck)
-	{
+	private final String name;
+	private int points;
+
+	public Player(String name, Deck deck) {
 		this.name = name;
 		this.points = 0;
 		this.hand = new Hand(deck);
 	}
-	public void receiveCard(Card c) {
-		hand.addCard(c);
-		System.out.println(name+" received a "+c.toString());
-	}
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+
+	public void addPoints(int reward) {
+		this.points += reward;
 	}
 
-	/**
-	 * @return the points
-	 */
-	public int getPoints() {
-		return points;
+	public Card getCard(int c) {
+		return this.hand.getCard(c);
 	}
 
 	/**
 	 * @return the hand
 	 */
 	public Hand getHand() {
-		return hand;
+		return this.hand;
 	}
-	public void addPoints(int reward) {
-		this.points +=reward;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return this.name;
 	}
-	public void resetHand(Deck deck) {
-		this.hand = new Hand(deck);
+
+	/**
+	 * @return the points
+	 */
+	public int getPoints() {
+		return this.points;
 	}
-	public void removeCard(int c) {
-		hand.removeCard(c);
-	}
-	public Card getCard(int c) {
-		return hand.getCard(c);
-	}
-	
-	public String toString() {
-		return hand.toString();
-	}
-	public boolean isEmpty() {
-		return hand.isEmpty();
-	}
+
 	public int getWorth() {
-		int length = hand.getLength();
+		final int length = this.hand.getLength();
 		int worth = 0;
 		for (int i = 0; i < length; i++)
 		{
-			String number = hand.getCard(i).getNumber();
+			final String number = this.hand.getCard(i).getNumber();
 			worth += (int) Helper.POINTS.get(number);
 		}
 		return worth;
+	}
+
+	public boolean isEmpty() {
+		return this.hand.isEmpty();
+	}
+
+	public void receiveCard(Card c) {
+		this.hand.addCard(c);
+		System.out.println(this.name + " received a " + c.toString());
+	}
+
+	public Card removeCard(int c) {
+		return this.hand.removeCard(c);
+	}
+
+	public void resetHand(Deck deck) {
+		this.hand = new Hand(deck);
+	}
+
+	@Override
+	public String toString() {
+		return this.hand.toString();
 	}
 }

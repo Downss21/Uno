@@ -1,12 +1,8 @@
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.script.Bindings;
 import javax.script.SimpleBindings;
-
-import java.util.Map.Entry; 
 
 public class Helper {
 	public static final Set<String> CARDS_SET = new HashSet<String>(Arrays.asList(

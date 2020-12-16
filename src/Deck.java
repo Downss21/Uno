@@ -47,22 +47,29 @@ public class Deck {
 		return discardPile.peek();
 	}
 	private Stack<Card> shuffle(Card[] deck) {
-		for (int i = 0; i < DECK_SIZE; i++) {
-		int randomNumber = generator.nextInt(DECK_SIZE);
+		int length = deck.length;
+		for (int i = 0; i < length; i++) {
+		int randomNumber = generator.nextInt(length);
 		Card c = deck[i];
 		deck[i] = deck[randomNumber];
 		deck[randomNumber] = c;
 		}
 		Stack<Card> stack = new Stack<Card>();
-		for (int i = 0; i < DECK_SIZE; i++) {
+		for (int i = 0; i < length; i++) {
 			stack.add(deck[i]);
 		}
 		return stack;
 	}
 	private void refresh() {
 		Card c = discardPile.pop();
-		Card[] deck = (Card[]) discardPile.toArray();
-		this.drawPile = shuffle(deck);
+		if (drawPile.isEmpty() && discardPile.isEmpty())
+		{
+			System.out.print("How did you manage to run out of cards. Do better next time");
+			System.exit(0);
+		}
+		Card[] array = new Card[discardPile.size()];
+		discardPile.copyInto(array);
+		this.drawPile = shuffle(array);
 		this.discardPile.clear();
 		this.discardPile.push(c);
 	}

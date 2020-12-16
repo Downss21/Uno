@@ -9,8 +9,7 @@ public class Card {
 		else this.color = color;
 		this.ACTION = Helper.ACTION_CARDS.contains(number);
 	}
-	public boolean canPlay(Deck deck) {
-		Card played = deck.peek();
+	public boolean canPlay(Card played) {
 		String playedColor = played.getColor();
 		String playedNumber = played.getNumber();
 		return (playedColor.equals(color) || playedNumber.equals(number) || Helper.WILD_CARDS.contains(number));

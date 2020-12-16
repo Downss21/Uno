@@ -50,4 +50,17 @@ public class Player {
 	public String toString() {
 		return hand.toString();
 	}
+	public boolean isEmpty() {
+		return hand.isEmpty();
+	}
+	public int getWorth() {
+		int length = hand.getLength();
+		int worth = 0;
+		for (int i = 0; i < length; i++)
+		{
+			String number = hand.getCard(i).getNumber();
+			worth += (int) Helper.POINTS.get(number);
+		}
+		return worth;
+	}
 }

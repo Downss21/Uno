@@ -10,10 +10,10 @@ public class Hand {
 			addCard(c);
 		}
 	}
-	public boolean canPlay(Deck deck) {
+	public boolean canPlay(Card c) {
 		int length = hand.size();
 		for (int i = 0; i < length; i++) {
-			if (hand.get(i).canPlay(deck)) return true;
+			if (hand.get(i).canPlay(c)) return true;
 		}
 		return false;
 	}
@@ -44,5 +44,20 @@ public class Hand {
 	}
 	public Card getCard(int c) {
 		return hand.get(c);
+	}
+	public boolean isEmpty() {
+		return hand.isEmpty();
+	}
+	public int getLength() {
+		return hand.size();
+	}
+	public boolean[] getValidPositions(Card c) {
+		int size = hand.size();
+		boolean[] validPos = new boolean[size];
+		for (int i = 0; i < size; i++)
+		{
+			validPos[i] = canPlay(c);
+		}
+		return validPos;
 	}
 }

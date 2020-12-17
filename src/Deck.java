@@ -4,9 +4,9 @@ import java.util.Stack;
 public class Deck {
 	private final Card[] deck = new Card[this.DECK_SIZE];
 	private final int DECK_SIZE = 108;
-	private final Stack<Card> discardPile = new Stack<Card>();
+	private Stack<Card> discardPile = new Stack<Card>();
 	private Stack<Card> drawPile = new Stack<Card>();
-	private final Random generator = new Random(6);
+	private final Random generator = new Random();
 
 	public Deck() {
 		int cardNumber = 0;
@@ -31,8 +31,7 @@ public class Deck {
 			}
 		}
 		// I'd never need an unshuffled deck so just auto shuffle at the end
-		this.drawPile = this.shuffle(this.deck);
-		this.discard(this.draw());
+		this.drawPile = shuffle(deck);
 	}
 
 	public void discard(Card c) {
@@ -51,6 +50,9 @@ public class Deck {
 	public Card peek() {
 		return this.discardPile.peek();
 	}
+	public Card drawPeek() {
+		return drawPile.peek();
+	}
 
 	private void refresh() {
 		final Card c = this.discardPile.pop();
@@ -66,6 +68,26 @@ public class Deck {
 		this.discardPile.push(c);
 	}
 
+	public void shuffleDraw() {
+		int size = drawPile.size();
+		Card[] deck = new Card[size];
+		drawPile.copyInto(deck);
+		
+		final int length = deck.length;
+		for (int i = 0; i < length; i++)
+		{
+			final int randomNumber = this.generator.nextInt(length);
+			final Card c = deck[i];
+			deck[i] = deck[randomNumber];
+			deck[randomNumber] = c;
+		}
+		final Stack<Card> stack = new Stack<Card>();
+		for (int i = 0; i < length; i++)
+		{
+			stack.add(deck[i]);
+		}
+		drawPile = stack;
+	}
 	private Stack<Card> shuffle(Card[] deck) {
 		final int length = deck.length;
 		for (int i = 0; i < length; i++)

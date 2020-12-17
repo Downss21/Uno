@@ -1,10 +1,8 @@
-import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 	private Player currentPlayer;
 	private Deck deck;
-	private final Random generator = new Random(0);
 	private int playDirection = 1;
 	private final Player[] playerList;
 	private int playerNumber = 0;
@@ -14,6 +12,7 @@ public class Game {
 	private boolean won = false;
 	private int turns = 0;
 
+	/*
 	public Game() {
 		this.deck = new Deck();
 		this.playerList = new Player[4];
@@ -23,7 +22,8 @@ public class Game {
 		this.playerList[3] = new Player("4", this.deck);
 		this.players = 4;
 	}
-	/*
+	*/
+	
 	public Game() {
 		this.deck = new Deck();
 		// building the player list
@@ -41,8 +41,15 @@ public class Game {
 			final Player p = new Player(name, this.deck);
 			this.playerList[i] = p;
 		}
+		Card c = deck.drawPeek();
+		while (c.getNumber().equals("+4")) {
+			deck.shuffleDraw();
+			c = deck.peek();
+		}
+		c = deck.draw();
+		playCard(c, playerList[1]);
 	}
-	*/
+	
 
 	private void advancePlayerlist() {
 		if (this.playDirection == 1)
@@ -94,7 +101,7 @@ public class Game {
 		}
 		int choice;
 		System.out.print("Enter the index of the option you want: ");
-		choice = this.generator.nextInt(length);
+		choice = reader.nextInt();
 		return choice;
 	}
 
@@ -109,7 +116,7 @@ public class Game {
 		int choice;
 		do
 		{
-			choice = this.generator.nextInt(length);
+			choice = reader.nextInt();
 		} while (!validPos[choice]);
 		return choice;
 	}
@@ -135,14 +142,13 @@ public class Game {
 				turns++;
 				this.currentPlayer = this.playerList[this.playerNumber];
 				final Card currentCard = this.deck.peek();
-				System.out.println("It is now turn #"+turns);
+				System.out.println("\nIt is now turn #"+turns);
 				System.out.println("The current player is " + this.currentPlayer.getName());
 				System.out.println("The current card is a " + currentCard.toString());
 				System.out.println("Your hand has " + this.currentPlayer.toString());
 				if (this.currentPlayer.getHand().canPlay(this.deck.peek()))
 				{
 					int choice = this.menu("First action in turn", new String[] { "Draw a Card", "Play a Card" });
-					choice = 1;
 					switch (choice)
 					{
 					case 0:
@@ -229,7 +235,6 @@ public class Game {
 		{
 			int choice = this.menu("Second action in turn",
 					new String[] { "Put " + c.toString() + " in your hand", "Play " + c.toString() });
-			choice = 1;
 			switch (choice)
 			{
 			case 0:
